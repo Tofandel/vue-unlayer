@@ -1,15 +1,18 @@
 # Vue Email Editor
 
-The excellent drag-n-drop email editor by [Unlayer](https://unlayer.com/embed) as a [Vue](https://vuejs.org/) _wrapper component_. This is the most powerful and developer friendly visual email builder for your app.
+The excellent drag-n-drop email editor by [Unlayer](https://unlayer.com/embed) as a [Vue](https://vuejs.org/) _wrapper
+component_. This is the most powerful and developer friendly visual email builder for your app.
 
 |                                                         Video Overview                                                          |
 | :-----------------------------------------------------------------------------------------------------------------------------: |
 | [![Vue Email Editor](https://unroll-assets.s3.amazonaws.com/unlayervideotour.png)](https://www.youtube.com/watch?v=MIWhX-NF3j8) |
-|                                      _Watch video overview: https://youtu.be/MIWhX-NF3j8_                                       |
+|                                      _Watch video
+overview: https://youtu.be/MIWhX-NF3j8_                                       |
 
 ## Live Demo
 
-Check out the live demo here: https://@tofandel/vue-unlayer-demo.netlify.app/ ([Source Code](https://github.com/unlayer/@tofandel/vue-unlayer/tree/master/src))
+Check out the live demo here: https:
+https://vue-email-editor-demo.netlify.app/ ([Source Code](https://github.com/@tofandel/vue-unlayer/tree/master/src))
 
 ## Installation
 
@@ -32,6 +35,7 @@ Next, you'll need to import the Email Editor component to your app.
 **App.vue**
 
 ```vue
+
 <template>
   <div id="example">
     <div class="container">
@@ -77,16 +81,16 @@ const editorReady = () => {
 };
 const saveDesign = () => {
   editor.value.saveDesign(
-      (design) => {
-        console.log('saveDesign', design);
-      },
+    (design) => {
+      console.log('saveDesign', design);
+    },
   );
 };
 const exportHtml = () => {
   editor.value.exportHtml(
-      (data) => {
-        console.log('exportHtml', data);
-      },
+    (data) => {
+      console.log('exportHtml', data);
+    },
   );
 };
 </script>
@@ -100,7 +104,8 @@ const exportHtml = () => {
 | **saveDesign** | `Function callback` | Returns the design JSON in a callback function          |
 | **exportHtml** | `Function callback` | Returns the design HTML and JSON in a callback function |
 
-See the [example source](https://github.com/unlayer/@tofandel/vue-unlayer/tree/master/src) for a reference implementation.
+See the [example source](https://github.com/unlayer/@tofandel/vue-unlayer/tree/master/src) for a reference
+implementation.
 
 ### Props
 
@@ -119,24 +124,25 @@ Here's an example using the above properties...
 **App.vue**
 
 ```html
+
 <template>
   <div id="app">
     <div class="container">
       <div id="bar">
         <h1>Vue Email Editor (Demo)</h1>
 
-        <button @click="saveDesign">Save Design</button>
-        <button @click="exportHtml">Export HTML</button>
+        <button v-if="editor" @click="saveDesign">Save Design</button>
+        <button v-if="editor" @click="exportHtml">Export HTML</button>
       </div>
 
       <EmailEditor
+        v-model:editor="editor"
         :appearance="appearance"
         :min-height="minHeight"
         :project-id="projectId"
         :locale="locale"
         :tools="tools"
         :options="options"
-        ref="emailEditor"
         @load="editorLoaded"
         @ready="editorReady"
       />
@@ -154,6 +160,7 @@ Here's an example using the above properties...
     },
     data() {
       return {
+        editor: null,
         minHeight: '1000px',
         locale: 'en',
         projectId: 0, // replace with your project id
@@ -179,19 +186,19 @@ Here's an example using the above properties...
       editorLoaded() {
         console.log('editorLoaded');
         // Pass your template JSON here
-        // this.$refs.emailEditor.editor.loadDesign({});
+        // this.editor.loadDesign({});
       },
       // called when the editor has finished loading
       editorReady() {
         console.log('editorReady');
       },
       saveDesign() {
-        this.$refs.emailEditor.editor.saveDesign((design) => {
+        this.editor.saveDesign((design) => {
           console.log('saveDesign', design);
         });
       },
       exportHtml() {
-        this.$refs.emailEditor.editor.exportHtml((data) => {
+        this.editor.exportHtml((data) => {
           console.log('exportHtml', data);
         });
       },
@@ -202,13 +209,15 @@ Here's an example using the above properties...
 
 ## Custom Tools
 
-Custom tools can help you add your own content blocks to the editor. Every application is different and needs different tools to reach it's full potential. [Learn More](https://docs.unlayer.com/docs/custom-tools)
+Custom tools can help you add your own content blocks to the editor. Every application is different and needs different
+tools to reach it's full potential. [Learn More](https://docs.unlayer.com/docs/custom-tools)
 
 [![Custom Tools](https://unroll-assets.s3.amazonaws.com/custom_tools.png)](https://docs.unlayer.com/docs/custom-tools)
 
 ## Localization
 
-You can submit new language translations by creating a PR on this GitHub repo: https://github.com/unlayer/translations. Translations managed by [PhraseApp](https://phraseapp.com)
+You can submit new language translations by creating a PR on this GitHub repo: https://github.com/unlayer/translations.
+Translations managed by [PhraseApp](https://phraseapp.com)
 
 ### License
 
