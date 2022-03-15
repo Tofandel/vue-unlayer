@@ -2,7 +2,7 @@
   "name": "@tofandel/vue-unlayer",
   "private": false,
   "version": "1.0.0",
-  "main": "./dist/vue-email-editor.common.js",
+  "main": "./dist/vue-unlayer.umd.js",
   "scripts": {
     "serve": "vue-cli-service serve demo/main.js",
     "demo:build": "vue-cli-service build demo/main.js",
