@@ -4,49 +4,60 @@
       <div id="bar">
         <h1>Vue Email Editor (Demo)</h1>
 
-        <router-link to="/dashboard">Dashboard</router-link>
-        <button v-on:click="saveDesign">Save Design</button>
-        <button v-on:click="exportHtml">Export HTML</button>
+        <RouterLink to="/dashboard">
+          Dashboard
+        </RouterLink>
+        <button
+          v-if="editor"
+          @click="saveDesign"
+        >
+          Save Design
+        </button>
+        <button
+          v-if="editor"
+          @click="exportHtml"
+        >
+          Export HTML
+        </button>
       </div>
 
-      <EmailEditor ref="emailEditor" v-on:load="editorLoaded" v-on:ready="editorReady" />
+      <EmailEditor
+        v-model:editor="editor"
+        @load="editorLoaded"
+        @ready="editorReady"
+      />
     </div>
   </div>
 </template>
 
-<script>
-import { EmailEditor } from '../components'
+<script setup>
+import { shallowRef } from 'vue';
 
-export default {
-  name: 'designEdit',
-  components: {
-    EmailEditor
-  },
-  methods: {
-    // called when the editor is created
-    editorLoaded() {
-      console.log('editorLoaded');
-    },
-    // called when the editor has finished loading
-    editorReady() {
-      console.log('editorReady');
-    },
-    saveDesign() {
-      this.$refs.emailEditor.editor.saveDesign(
-        (design) => {
-          console.log('saveDesign', design);
-        }
-      )
-    },
-    exportHtml() {
-      this.$refs.emailEditor.editor.exportHtml(
-        (data) => {
-          console.log('exportHtml', data);
-        }
-      )
-    }
-  }
-}
+import EmailEditor from '@/EmailEditor';
+
+let editor = shallowRef(null);
+// called when the editor is created
+const editorLoaded = () => {
+  console.log('editorLoaded');
+};
+// called when the editor has finished loading
+const editorReady = () => {
+  console.log('editorReady');
+};
+const saveDesign = () => {
+  editor.value.saveDesign(
+      (design) => {
+        console.log('saveDesign', design);
+      },
+  );
+};
+const exportHtml = () => {
+  editor.value.exportHtml(
+      (data) => {
+        console.log('exportHtml', data);
+      },
+  );
+};
 </script>
 
 <style>

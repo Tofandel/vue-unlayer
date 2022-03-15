@@ -1,53 +1,37 @@
 {
-  "name": "vue-email-editor",
-  "version": "0.9.0",
+  "name": "@tofandel/vue-unlayer",
+  "private": false,
+  "version": "1.0.0",
   "main": "./dist/vue-email-editor.common.js",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "build-bundle": "vue-cli-service build --target lib --name vue-email-editor ./src/components/index.js",
-    "lint": "vue-cli-service lint",
-    "release": "npm run build-bundle && npm publish"
+    "serve": "vue-cli-service serve demo/main.js",
+    "demo:build": "vue-cli-service build demo/main.js",
+    "build": "vue-cli-service build --target lib --name vue-unlayer ./src/EmailEditor.vue && rm dist/demo.html",
+    "lint": "vue-cli-service lint .",
+    "lint:fix": "vue-cli-service lint . --fix",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "vue": "^2.5.17"
+    "vue": "^3.2.31"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.0.5",
-    "@vue/cli-plugin-eslint": "^3.0.5",
-    "@vue/cli-service": "^3.0.5",
-    "vue-router": "^3.3.2",
-    "vue-template-compiler": "^2.5.17"
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-vue": "^8.5.0",
+    "@vue/cli-plugin-babel": "^5.0.3",
+    "@vue/cli-plugin-eslint": "^5.0.3",
+    "@vue/cli-service": "^5.0.3",
+    "vue-router": "^4.0.14",
+    "eslint": "^8.11.0",
+    "@babel/eslint-parser": "^7.17.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3"
   },
   "files": [
     "dist/*",
-    "src/*",
-    "public/*",
-    "*.json",
-    "*.js"
+    "src/*"
   ],
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ],
-    "rules": {},
-    "parserOptions": {
-      "parser": "babel-eslint"
-    }
-  },
-  "postcss": {
-    "plugins": {
-      "autoprefixer": {}
-    }
-  },
   "browserslist": [
     "> 1%",
     "last 2 versions",
-    "not ie <= 8"
+    "not ie <= 11"
   ]
 }

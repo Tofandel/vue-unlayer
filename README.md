@@ -9,20 +9,20 @@ The excellent drag-n-drop email editor by [Unlayer](https://unlayer.com/embed) a
 
 ## Live Demo
 
-Check out the live demo here: https://vue-email-editor-demo.netlify.app/ ([Source Code](https://github.com/unlayer/vue-email-editor/tree/master/src))
+Check out the live demo here: https://@tofandel/vue-unlayer-demo.netlify.app/ ([Source Code](https://github.com/unlayer/@tofandel/vue-unlayer/tree/master/src))
 
 ## Installation
 
 The easiest way to use Vue Email Editor is to install it from Npm or Yarn and include it in your own Vue build process.
 
 ```
-npm install vue-email-editor --save
+npm install @tofandel/vue-unlayer --save
 ```
 
 or
 
 ```
-yarn add vue-email-editor
+yarn add @tofandel/vue-unlayer
 ```
 
 ## Usage
@@ -31,57 +31,64 @@ Next, you'll need to import the Email Editor component to your app.
 
 **App.vue**
 
-```html
+```vue
 <template>
-  <div id="app">
+  <div id="example">
     <div class="container">
       <div id="bar">
         <h1>Vue Email Editor (Demo)</h1>
 
-        <button v-on:click="saveDesign">Save Design</button>
-        <button v-on:click="exportHtml">Export HTML</button>
+        <button
+          v-if="editor"
+          @click="saveDesign"
+        >
+          Save Design
+        </button>
+        <button
+          v-if="editor"
+          @click="exportHtml"
+        >
+          Export HTML
+        </button>
       </div>
 
       <EmailEditor
-        ref="emailEditor"
-        v-on:load="editorLoaded"
-        v-on:ready="editorReady"
+        v-model:editor="editor"
+        @load="editorLoaded"
+        @ready="editorReady"
       />
     </div>
   </div>
 </template>
 
-<script>
-  import { EmailEditor } from 'vue-email-editor';
+<script setup>
+import { shallowRef } from 'vue';
 
-  export default {
-    name: 'app',
-    components: {
-      EmailEditor,
-    },
-    methods: {
-      // called when the editor is created
-      editorLoaded() {
-        console.log('editorLoaded');
-        // Pass the template JSON here
-        // this.$refs.emailEditor.editor.loadDesign({});
+import EmailEditor from '@tofandel/vue-unlayer';
+
+let editor = shallowRef(null);
+// called when the editor is created
+const editorLoaded = () => {
+  editor.value.loadDesign({});
+};
+// called when the editor has finished loading
+const editorReady = () => {
+  console.log('editorReady');
+};
+const saveDesign = () => {
+  editor.value.saveDesign(
+      (design) => {
+        console.log('saveDesign', design);
       },
-      // called when the editor has finished loading
-      editorReady() {
-        console.log('editorReady');
+  );
+};
+const exportHtml = () => {
+  editor.value.exportHtml(
+      (data) => {
+        console.log('exportHtml', data);
       },
-      saveDesign() {
-        this.$refs.emailEditor.editor.saveDesign((design) => {
-          console.log('saveDesign', design);
-        });
-      },
-      exportHtml() {
-        this.$refs.emailEditor.editor.exportHtml((data) => {
-          console.log('exportHtml', data);
-        });
-      },
-    },
-  };
+  );
+};
 </script>
 ```
 
@@ -93,9 +100,9 @@ Next, you'll need to import the Email Editor component to your app.
 | **saveDesign** | `Function callback` | Returns the design JSON in a callback function          |
 | **exportHtml** | `Function callback` | Returns the design HTML and JSON in a callback function |
 
-See the [example source](https://github.com/unlayer/vue-email-editor/tree/master/src) for a reference implementation.
+See the [example source](https://github.com/unlayer/@tofandel/vue-unlayer/tree/master/src) for a reference implementation.
 
-### Properties
+### Props
 
 - `editorId` `String` HTML div id of the container where the editor will be embedded (optional)
 - `minHeight` `String` minimum height to initialize the editor with (default 500px)
@@ -118,8 +125,8 @@ Here's an example using the above properties...
       <div id="bar">
         <h1>Vue Email Editor (Demo)</h1>
 
-        <button v-on:click="saveDesign">Save Design</button>
-        <button v-on:click="exportHtml">Export HTML</button>
+        <button @click="saveDesign">Save Design</button>
+        <button @click="exportHtml">Export HTML</button>
       </div>
 
       <EmailEditor
@@ -130,15 +137,15 @@ Here's an example using the above properties...
         :tools="tools"
         :options="options"
         ref="emailEditor"
-        v-on:load="editorLoaded"
-        v-on:ready="editorReady"
+        @load="editorLoaded"
+        @ready="editorReady"
       />
     </div>
   </div>
 </template>
 
 <script>
-  import { EmailEditor } from 'vue-email-editor';
+  import EmailEditor from '@tofandel/vue-unlayer';
 
   export default {
     name: 'app',
